@@ -1,4 +1,4 @@
-class AppImages {
+class AppAssets {
   static const String eventlyHorizentalLogo =
       "assets/images/evently_horizental_logo.png";
   static const String setupDarkModeImage =

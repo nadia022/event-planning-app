@@ -1,7 +1,7 @@
 import 'package:evently_app/auth/login_screen/login_screen.dart';
 import 'package:evently_app/ui/Screens/onboarding_screen/page_view_widget.dart';
 import 'package:evently_app/utils/app_colors.dart';
-import 'package:evently_app/assets/app_images.dart';
+import 'package:evently_app/assets/app_assets.dart';
 import 'package:evently_app/providers/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -40,7 +40,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Image.asset(
-                  AppImages.eventlyHorizentalLogo,
+                  AppAssets.eventlyHorizentalLogo,
                   height: height * 0.08,
                 ),
                 Expanded(
@@ -53,15 +53,15 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     controller: pageController,
                     children: [
                       PageViewWidget(
-                          image: AppImages.pageView1,
+                          image: AppAssets.pageView1,
                           label: AppLocalizations.of(context)!
                               .find_events_that_inspire_you,
                           text: AppLocalizations.of(context)!
                               .dive_into_a_world_of_events_crafted_to_fit_your_unique_interests_whether_you_are_into_live_music_art_workshops_professional_networking_or_simply_discovering_new_experiences_we_have_something_for_everyone_our_curated_recommendations_will_help_you_explore_connect_and_make_the_most_of_every_opportunity_around_you),
                       PageViewWidget(
                         image: themProvider.themeMode == ThemeMode.light
-                            ? AppImages.pageView2LightMode
-                            : AppImages.pageView2DarkMode,
+                            ? AppAssets.pageView2LightMode
+                            : AppAssets.pageView2DarkMode,
                         label: AppLocalizations.of(context)!
                             .effortless_event_planning,
                         text: AppLocalizations.of(context)!
@@ -69,8 +69,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       ),
                       PageViewWidget(
                           image: themProvider.themeMode == ThemeMode.light
-                              ? AppImages.pageView3LightMode
-                              : AppImages.pageView3DarkMode,
+                              ? AppAssets.pageView3LightMode
+                              : AppAssets.pageView3DarkMode,
                           label: AppLocalizations.of(context)!
                               .connect_with_friends_share_moments,
                           text: AppLocalizations.of(context)!

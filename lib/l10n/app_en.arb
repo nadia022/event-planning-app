@@ -39,5 +39,10 @@
     "home": "Home",
     "map": "Map",
     "favorite": "Favorite",
-    "user": "User"
+    "user": "User",
+    "search_for_event": "Search For Event",
+    "arabic": "Arabic",
+    "english": "English",
+    "light": "Light",
+    "dark": "Dark"
 }

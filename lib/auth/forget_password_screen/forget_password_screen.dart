@@ -1,5 +1,5 @@
 import 'package:evently_app/utils/app_colors.dart';
-import 'package:evently_app/assets/app_images.dart';
+import 'package:evently_app/assets/app_assets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -26,7 +26,7 @@ class ForgetPasswordScreen extends StatelessWidget {
         padding: EdgeInsets.all(height * 0.02),
         child: Column(
           children: [
-            Image.asset(AppImages.forget_password_image),
+            Image.asset(AppAssets.forget_password_image),
             SizedBox(
               height: height * 0.02,
             ),

@@ -1,7 +1,7 @@
 import 'package:evently_app/auth/forget_password_screen/forget_password_screen.dart';
 import 'package:evently_app/auth/register_screen/register_screen.dart';
 import 'package:evently_app/utils/app_colors.dart';
-import 'package:evently_app/assets/app_images.dart';
+import 'package:evently_app/assets/app_assets.dart';
 import 'package:evently_app/utils/dialog_utils.dart';
 import 'package:evently_app/ui/widgets/language_switch.dart';
 import 'package:evently_app/ui/widgets/theme_switch.dart';
@@ -36,7 +36,7 @@ class _LoginScreenState extends State<LoginScreen> {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  Image.asset(AppImages.eventlyVerticalLogo),
+                  Image.asset(AppAssets.eventlyVerticalLogo),
                   SizedBox(
                     height: height * 0.035,
                   ),
@@ -192,7 +192,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Image.asset(
-                          AppImages.google_logo,
+                          AppAssets.google_logo,
                           height: height * 0.03,
                         ),
                         Padding(

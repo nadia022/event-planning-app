@@ -1,10 +1,11 @@
-import 'package:evently_app/ui/tabs/favorite/favorite_tab.dart';
-import 'package:evently_app/ui/tabs/home/home_tab.dart';
-import 'package:evently_app/ui/tabs/map/map_tab..dart';
-import 'package:evently_app/ui/tabs/user/user_tab.dart';
+import 'package:evently_app/ui/Screens/home_screen/tabs/favorite/favorite_tab.dart';
+import 'package:evently_app/ui/Screens/home_screen/tabs/home/home_tab.dart';
+import 'package:evently_app/ui/Screens/home_screen/tabs/map/map_tab..dart';
+import 'package:evently_app/ui/Screens/home_screen/tabs/user/user_tab.dart';
 import 'package:evently_app/utils/app_colors.dart';
-import 'package:evently_app/assets/app_images.dart';
+import 'package:evently_app/assets/app_assets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HomeScreen extends StatefulWidget {
   static const routeName = "HomeScreen";
@@ -19,6 +20,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var appLocalization = AppLocalizations.of(context)!;
+
     return Scaffold(
       bottomNavigationBar: Theme(
         data: Theme.of(context).copyWith(canvasColor: Colors.transparent),
@@ -27,6 +30,9 @@ class _HomeScreenState extends State<HomeScreen> {
           padding: EdgeInsets.all(0),
           shape: const CircularNotchedRectangle(),
           child: BottomNavigationBar(
+            selectedItemColor: AppColors.white, // لون التاب المختار
+            unselectedItemColor: AppColors.white,
+            type: BottomNavigationBarType.fixed,
             elevation: 0,
             showSelectedLabels: true,
             showUnselectedLabels: true,
@@ -37,24 +43,24 @@ class _HomeScreenState extends State<HomeScreen> {
             },
             items: [
               buildBottomNavBarItem(
-                  selcIcon: AppImages.selcHomeIcon,
-                  unSelcIcon: AppImages.unSelcHomeIcon,
-                  label: "Home",
+                  selcIcon: AppAssets.selcHomeIcon,
+                  unSelcIcon: AppAssets.unSelcHomeIcon,
+                  label: appLocalization.home,
                   index: 0),
               buildBottomNavBarItem(
-                  selcIcon: AppImages.selcLocIcon,
-                  unSelcIcon: AppImages.unSelcLocIcon,
-                  label: "Map",
+                  selcIcon: AppAssets.selcLocIcon,
+                  unSelcIcon: AppAssets.unSelcLocIcon,
+                  label: appLocalization.map,
                   index: 1),
               buildBottomNavBarItem(
-                  selcIcon: AppImages.selcFavIcon,
-                  unSelcIcon: AppImages.unSelcFavIcon,
-                  label: "Favorite",
+                  selcIcon: AppAssets.selcFavIcon,
+                  unSelcIcon: AppAssets.unSelcFavIcon,
+                  label: appLocalization.favorite,
                   index: 2),
               buildBottomNavBarItem(
-                  selcIcon: AppImages.selcUserIcon,
-                  unSelcIcon: AppImages.unSelcUserIcon,
-                  label: "User",
+                  selcIcon: AppAssets.selcUserIcon,
+                  unSelcIcon: AppAssets.unSelcUserIcon,
+                  label: appLocalization.user,
                   index: 3),
             ],
           ),

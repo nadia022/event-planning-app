@@ -1,7 +1,7 @@
 import 'package:animated_toggle_switch/animated_toggle_switch.dart';
 import 'package:evently_app/ui/Screens/onboarding_screen/onboarding_screen.dart';
 import 'package:evently_app/utils/app_colors.dart';
-import 'package:evently_app/assets/app_images.dart';
+import 'package:evently_app/assets/app_assets.dart';
 import 'package:evently_app/providers/locale_provider.dart';
 import 'package:evently_app/providers/theme_provider.dart';
 import 'package:evently_app/ui/widgets/language_switch.dart';
@@ -41,13 +41,13 @@ class _SetupScreenState extends State<SetupScreen> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Image.asset(
-                  AppImages.eventlyHorizentalLogo,
+                  AppAssets.eventlyHorizentalLogo,
                   height: height * 0.08,
                 ),
                 Expanded(
                     child: Image.asset(themProvider.themeMode == ThemeMode.dark
-                        ? AppImages.setupDarkModeImage
-                        : AppImages.setupLightModeImage)),
+                        ? AppAssets.setupDarkModeImage
+                        : AppAssets.setupLightModeImage)),
                 Text(
                   AppLocalizations.of(context)!.personalize_your_experience,
                   style: Theme.of(context).textTheme.labelLarge,

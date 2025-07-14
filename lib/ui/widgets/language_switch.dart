@@ -1,5 +1,5 @@
 import 'package:animated_toggle_switch/animated_toggle_switch.dart';
-import 'package:evently_app/assets/app_images.dart';
+import 'package:evently_app/assets/app_assets.dart';
 import 'package:evently_app/providers/locale_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -31,11 +31,11 @@ class _LanguageSwitchState extends State<LanguageSwitch> {
       iconBuilder: (value, foreground) {
         if (value == "en") {
           return CircleAvatar(
-            backgroundImage: AssetImage(AppImages.englishIcon),
+            backgroundImage: AssetImage(AppAssets.englishIcon),
           );
         } else {
           return CircleAvatar(
-            backgroundImage: AssetImage(AppImages.arabicIcon),
+            backgroundImage: AssetImage(AppAssets.arabicIcon),
           );
         }
       },

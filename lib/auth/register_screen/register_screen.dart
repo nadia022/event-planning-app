@@ -1,6 +1,6 @@
 import 'package:evently_app/auth/login_screen/login_screen.dart';
 import 'package:evently_app/utils/app_colors.dart';
-import 'package:evently_app/assets/app_images.dart';
+import 'package:evently_app/assets/app_assets.dart';
 import 'package:evently_app/utils/dialog_utils.dart';
 import 'package:evently_app/ui/widgets/language_switch.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -47,7 +47,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                Image.asset(AppImages.eventlyVerticalLogo),
+                Image.asset(AppAssets.eventlyVerticalLogo),
                 SizedBox(
                   height: height * 0.035,
                 ),

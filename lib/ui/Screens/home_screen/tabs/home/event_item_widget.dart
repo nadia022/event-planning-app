@@ -1,4 +1,4 @@
-import 'package:evently_app/assets/app_images.dart';
+import 'package:evently_app/assets/app_assets.dart';
 import 'package:evently_app/utils/app_colors.dart';
 import 'package:evently_app/utils/app_styles.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +17,7 @@ class EventItemWidget extends StatelessWidget {
       height: height * 0.22,
       decoration: BoxDecoration(
         image: DecorationImage(
-            image: AssetImage(AppImages.BirthdayEventImage), fit: BoxFit.fill),
+            image: AssetImage(AppAssets.BirthdayEventImage), fit: BoxFit.fill),
         borderRadius: BorderRadius.circular(16),
         border: Border.all(color: AppColors.primaryColorLight, width: 1),
       ),
