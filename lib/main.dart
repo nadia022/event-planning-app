@@ -1,8 +1,9 @@
+import 'package:evently_app/ui/Screens/home_screen/add_event/add_event_screen.dart';
 import 'package:evently_app/ui/Screens/home_screen/home_screen.dart';
-import 'package:evently_app/auth/forget_password_screen/forget_password_screen.dart';
-import 'package:evently_app/auth/login_screen/login_screen.dart';
+import 'package:evently_app/ui/auth/forget_password_screen/forget_password_screen.dart';
+import 'package:evently_app/ui/auth/login_screen/login_screen.dart';
 import 'package:evently_app/ui/Screens/onboarding_screen/onboarding_screen.dart';
-import 'package:evently_app/auth/register_screen/register_screen.dart';
+import 'package:evently_app/ui/auth/register_screen/register_screen.dart';
 import 'package:evently_app/ui/Screens/setup_screen/setup_screen.dart';
 import 'package:evently_app/ui/Screens/splash_screen.dart';
 import 'package:evently_app/Theme/app_theme.dart';
@@ -43,6 +44,7 @@ class MyApp extends StatelessWidget {
         RegisterScreen.routeName: (_) => RegisterScreen(),
         ForgetPasswordScreen.routeName: (_) => ForgetPasswordScreen(),
         HomeScreen.routeName: (_) => HomeScreen(),
+        AddEventScreen.routeName: (_) => AddEventScreen(),
       },
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,

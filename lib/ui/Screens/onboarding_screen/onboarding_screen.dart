@@ -1,4 +1,4 @@
-import 'package:evently_app/auth/login_screen/login_screen.dart';
+import 'package:evently_app/ui/auth/login_screen/login_screen.dart';
 import 'package:evently_app/ui/Screens/onboarding_screen/page_view_widget.dart';
 import 'package:evently_app/utils/app_colors.dart';
 import 'package:evently_app/assets/app_assets.dart';

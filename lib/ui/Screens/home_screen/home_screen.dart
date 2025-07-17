@@ -1,3 +1,4 @@
+import 'package:evently_app/ui/Screens/home_screen/add_event/add_event_screen.dart';
 import 'package:evently_app/ui/Screens/home_screen/tabs/favorite/favorite_tab.dart';
 import 'package:evently_app/ui/Screens/home_screen/tabs/home/home_tab.dart';
 import 'package:evently_app/ui/Screens/home_screen/tabs/map/map_tab..dart';
@@ -30,7 +31,7 @@ class _HomeScreenState extends State<HomeScreen> {
           padding: EdgeInsets.all(0),
           shape: const CircularNotchedRectangle(),
           child: BottomNavigationBar(
-            selectedItemColor: AppColors.white, // لون التاب المختار
+            selectedItemColor: AppColors.white,
             unselectedItemColor: AppColors.white,
             type: BottomNavigationBarType.fixed,
             elevation: 0,
@@ -67,7 +68,9 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.pushNamed(context, AddEventScreen.routeName);
+        },
         child: Icon(
           Icons.add,
           color: AppColors.white,

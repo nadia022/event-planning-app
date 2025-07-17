@@ -29,6 +29,19 @@ class AppAssets {
   static const String selcLocIcon = "assets/images/selc_loc-icon.png";
   static const String selcFavIcon = "assets/images/selc_fav_icon.png";
   static const String selcUserIcon = "assets/images/selc_user_icon.png";
-  static const String BirthdayEventImage =
+  static const String birthdayEventImage =
       "assets/images/birthday_event_image.png";
+  static const String sportEventImage = "assets/images/sport_image.png";
+  static const String meetingEventImage = "assets/images/meeting_image.png";
+  static const String gamingEventImage = "assets/images/gaming_image.png";
+  static const String eatingEventImage = "assets/images/eating_image.png";
+  static const String holidayEventImage = "assets/images/holiday_image.png";
+  static const String exhibitionEventImage =
+      "assets/images/exhibition_image.png";
+  static const String workShopEventImage = "assets/images/work_shop_image.png";
+  static const String bookClubEventImage = "assets/images/book_club_image.png";
+  static const String titleIcon = "assets/images/title_icon.png";
+  static const String dateIcon = "assets/images/date_icon.png";
+  static const String timeIcon = "assets/images/time_icon.png";
+  static const String locationIcon = "assets/images/loc_frame_icon.png";
 }

@@ -5,27 +5,38 @@ import 'package:flutter/material.dart';
 class EventNameWidget extends StatelessWidget {
   bool selectEvent;
   String eventName;
-  EventNameWidget({required this.selectEvent, required this.eventName});
+  Color selecBackgroundColor;
+  TextStyle selcTextStyle;
+  TextStyle unselcTextStyle;
+  Color borderColor;
+
+  EventNameWidget(
+      {required this.selectEvent,
+      required this.eventName,
+      required this.selecBackgroundColor,
+      required this.selcTextStyle,
+      required this.unselcTextStyle,
+      required this.borderColor});
 
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: width * 0.016),
+      margin: EdgeInsets.symmetric(horizontal: width * 0.01),
       alignment: Alignment.center,
       width: width * 0.3,
       height: height * 0.05,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(46),
         border: Border.all(
-          color: AppColors.white,
+          color: borderColor,
         ),
-        color: selectEvent ? AppColors.white : Colors.transparent,
+        color: selectEvent ? selecBackgroundColor : Colors.transparent,
       ),
       child: Text(
         eventName,
-        style: selectEvent ? AppStyles.mediumBlue16 : AppStyles.mediumWhite16,
+        style: selectEvent ? selcTextStyle : unselcTextStyle,
       ),
     );
   }

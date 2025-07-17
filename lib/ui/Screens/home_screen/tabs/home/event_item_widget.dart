@@ -17,7 +17,7 @@ class EventItemWidget extends StatelessWidget {
       height: height * 0.22,
       decoration: BoxDecoration(
         image: DecorationImage(
-            image: AssetImage(AppAssets.BirthdayEventImage), fit: BoxFit.fill),
+            image: AssetImage(AppAssets.birthdayEventImage), fit: BoxFit.fill),
         borderRadius: BorderRadius.circular(16),
         border: Border.all(color: AppColors.primaryColorLight, width: 1),
       ),

@@ -1,5 +1,5 @@
-import 'package:evently_app/auth/forget_password_screen/forget_password_screen.dart';
-import 'package:evently_app/auth/register_screen/register_screen.dart';
+import 'package:evently_app/ui/auth/forget_password_screen/forget_password_screen.dart';
+import 'package:evently_app/ui/auth/register_screen/register_screen.dart';
 import 'package:evently_app/utils/app_colors.dart';
 import 'package:evently_app/assets/app_assets.dart';
 import 'package:evently_app/utils/dialog_utils.dart';

@@ -6,8 +6,8 @@ class AppStyles {
     color: AppColors.white,
     fontSize: 14,
   );
-  static TextStyle largeWhiteBold24 = TextStyle(
-      color: AppColors.white, fontSize: 24, fontWeight: FontWeight.bold);
+  static TextStyle largeWhiteBold20 = TextStyle(
+      color: AppColors.white, fontSize: 20, fontWeight: FontWeight.bold);
 
   static TextStyle largeBlueBold20 = TextStyle(
       color: AppColors.primaryColorLight,
@@ -25,10 +25,19 @@ class AppStyles {
     color: AppColors.primaryColorLight,
     fontSize: 16,
   );
+  static TextStyle mediumBlue20 = TextStyle(
+    color: AppColors.primaryColorLight,
+    fontSize: 20,
+  );
   static TextStyle mediumWhite16 = TextStyle(
     color: AppColors.white,
     fontSize: 16,
   );
+  static TextStyle mediumBlack16 = TextStyle(
+    color: AppColors.black,
+    fontSize: 16,
+  );
+
   static TextStyle largeBlackBold20 = TextStyle(
       color: AppColors.black, fontSize: 20, fontWeight: FontWeight.bold);
 }

@@ -1,6 +1,6 @@
 import 'package:evently_app/assets/app_assets.dart';
 import 'package:evently_app/ui/Screens/home_screen/tabs/home/event_item_widget.dart';
-import 'package:evently_app/ui/Screens/home_screen/tabs/home/event_tab_widget.dart';
+import 'package:evently_app/ui/Screens/home_screen/tabs/home/event_name_widget.dart';
 import 'package:evently_app/utils/app_colors.dart';
 import 'package:evently_app/utils/app_styles.dart';
 import 'package:flutter/material.dart';
@@ -43,7 +43,7 @@ class _HomeTabState extends State<HomeTab> {
             // return from data base
             Text(
               "User Name ",
-              style: AppStyles.largeWhiteBold24,
+              style: AppStyles.largeWhiteBold20,
             ),
             Row(
               children: [
@@ -118,8 +118,13 @@ class _HomeTabState extends State<HomeTab> {
                 },
                 tabs: eventNames.map((eventName) {
                   return EventNameWidget(
-                      selectEvent: selectIndex == eventNames.indexOf(eventName),
-                      eventName: eventName);
+                    selcTextStyle: AppStyles.mediumBlue16,
+                    unselcTextStyle: AppStyles.mediumWhite16,
+                    selecBackgroundColor: AppColors.white,
+                    selectEvent: selectIndex == eventNames.indexOf(eventName),
+                    eventName: eventName,
+                    borderColor: AppColors.white,
+                  );
                 }).toList(),
               ),
             ),
