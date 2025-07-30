@@ -9,12 +9,14 @@ class CustomEventDateOrTime extends StatelessWidget {
   String iconPath;
   String labelText;
   String valueText;
+  Function DateOrTimeOntap;
 
   CustomEventDateOrTime(
       {super.key,
       required this.iconPath,
       required this.labelText,
-      required this.valueText});
+      required this.valueText,
+      required this.DateOrTimeOntap});
 
   @override
   Widget build(BuildContext context) {
@@ -33,9 +35,14 @@ class CustomEventDateOrTime extends StatelessWidget {
               : AppStyles.mediumWhite16,
         ),
         Spacer(),
-        Text(
-          valueText,
-          style: AppStyles.mediumBlue16,
+        InkWell(
+          onTap: () {
+            DateOrTimeOntap();
+          },
+          child: Text(
+            valueText,
+            style: AppStyles.mediumBlue16,
+          ),
         ),
       ],
     );

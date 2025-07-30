@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:evently_app/ui/Screens/home_screen/add_event/add_event_screen.dart';
 import 'package:evently_app/ui/Screens/home_screen/home_screen.dart';
 import 'package:evently_app/ui/auth/forget_password_screen/forget_password_screen.dart';
@@ -20,6 +21,7 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  await FirebaseFirestore.instance.disableNetwork();
   runApp(
     MultiProvider(providers: [
       ChangeNotifierProvider(create: (context) => ThemeProvider()),
