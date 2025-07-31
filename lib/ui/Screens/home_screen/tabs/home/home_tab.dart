@@ -1,10 +1,12 @@
 import 'package:evently_app/assets/app_assets.dart';
+import 'package:evently_app/providers/event_list_provider.dart';
 import 'package:evently_app/ui/Screens/home_screen/tabs/home/event_item_widget.dart';
 import 'package:evently_app/ui/Screens/home_screen/tabs/home/event_name_widget.dart';
 import 'package:evently_app/utils/app_colors.dart';
 import 'package:evently_app/utils/app_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
 
 class HomeTab extends StatefulWidget {
   @override
@@ -12,13 +14,12 @@ class HomeTab extends StatefulWidget {
 }
 
 class _HomeTabState extends State<HomeTab> {
-  int selectIndex = 0;
-
   @override
   Widget build(BuildContext context) {
     var appLocalization = AppLocalizations.of(context)!;
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
+    var eventListProvider = Provider.of<EventListProvider>(context);
     List<String> eventNames = [
       appLocalization.all,
       appLocalization.sport,
@@ -31,7 +32,9 @@ class _HomeTabState extends State<HomeTab> {
       appLocalization.holiday,
       appLocalization.eating,
     ];
-
+    if (eventListProvider.eventList.isEmpty) {
+      eventListProvider.getAllEvents();
+    }
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: height * 0.1,
@@ -113,7 +116,7 @@ class _HomeTabState extends State<HomeTab> {
                 dividerColor: Colors.transparent,
                 isScrollable: true,
                 onTap: (value) {
-                  selectIndex = value;
+                  eventListProvider.changeIndex(value);
                   setState(() {});
                 },
                 tabs: eventNames.map((eventName) {
@@ -121,7 +124,8 @@ class _HomeTabState extends State<HomeTab> {
                     selcTextStyle: AppStyles.mediumBlue16,
                     unselcTextStyle: AppStyles.mediumWhite16,
                     selecBackgroundColor: AppColors.white,
-                    selectEvent: selectIndex == eventNames.indexOf(eventName),
+                    selectEvent: eventListProvider.selectIndex ==
+                        eventNames.indexOf(eventName),
                     eventName: eventName,
                     borderColor: AppColors.white,
                   );
@@ -130,11 +134,20 @@ class _HomeTabState extends State<HomeTab> {
             ),
           ),
           Expanded(
-            child: ListView.builder(
-                itemCount: eventNames.length,
-                itemBuilder: (BuildContext context, int intex) {
-                  return EventItemWidget();
-                }),
+            child: eventListProvider.filteredList.isEmpty
+                ? Center(
+                    child: Text(
+                      "Events not found",
+                      style: AppStyles.mediumBlack16,
+                    ),
+                  )
+                : ListView.builder(
+                    itemCount: eventListProvider.filteredList.length,
+                    itemBuilder: (BuildContext context, int intex) {
+                      return EventItemWidget(
+                        event: eventListProvider.filteredList[intex],
+                      );
+                    }),
           )
         ],
       ),

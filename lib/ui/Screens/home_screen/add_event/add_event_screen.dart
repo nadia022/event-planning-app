@@ -1,5 +1,6 @@
 import 'package:evently_app/assets/app_assets.dart';
 import 'package:evently_app/model/event.dart';
+import 'package:evently_app/providers/event_list_provider.dart';
 import 'package:evently_app/providers/theme_provider.dart';
 import 'package:evently_app/ui/Screens/home_screen/add_event/custom_event_date_or_time.dart';
 import 'package:evently_app/ui/Screens/home_screen/tabs/home/event_name_widget.dart';
@@ -27,6 +28,7 @@ class _AddEventScreenState extends State<AddEventScreen> {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   String eventImage = '';
   String eventName = 'Sport';
+  late EventListProvider eventListProvider;
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +62,7 @@ class _AddEventScreenState extends State<AddEventScreen> {
     eventName = eventNames[selectIndex];
     print("Event Image: $eventImage");
     print("Event Name: $eventName");
-
+    eventListProvider = Provider.of<EventListProvider>(context);
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -270,6 +272,7 @@ class _AddEventScreenState extends State<AddEventScreen> {
           print("The event added succesfully");
         },
       );
+      eventListProvider.getAllEvents();
       Navigator.pop(context);
     }
   }

@@ -1,9 +1,14 @@
-import 'package:evently_app/assets/app_assets.dart';
+import 'package:evently_app/model/event.dart';
 import 'package:evently_app/utils/app_colors.dart';
 import 'package:evently_app/utils/app_styles.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class EventItemWidget extends StatelessWidget {
+  Event event;
+
+  EventItemWidget({required this.event});
+
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
@@ -17,7 +22,7 @@ class EventItemWidget extends StatelessWidget {
       height: height * 0.22,
       decoration: BoxDecoration(
         image: DecorationImage(
-            image: AssetImage(AppAssets.birthdayEventImage), fit: BoxFit.fill),
+            image: AssetImage(event.eventImage), fit: BoxFit.fill),
         borderRadius: BorderRadius.circular(16),
         border: Border.all(color: AppColors.primaryColorLight, width: 1),
       ),
@@ -33,11 +38,11 @@ class EventItemWidget extends StatelessWidget {
             child: Column(
               children: [
                 Text(
-                  "21",
+                  '${event.date.day}',
                   style: AppStyles.largeBlueBold20,
                 ),
                 Text(
-                  "Nov",
+                  DateFormat('MMM').format(event.date),
                   style: AppStyles.largeBlueBold20,
                 )
               ],
@@ -53,7 +58,7 @@ class EventItemWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "This is a Birthday Party for women ",
+                  event.descreption,
                   style: AppStyles.mediumBlackBold14,
                 ),
                 Icon(

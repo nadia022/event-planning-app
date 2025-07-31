@@ -46,7 +46,7 @@ class FavoriteTab extends StatelessWidget {
               child: ListView.builder(
                   itemCount: 20,
                   itemBuilder: (context, index) {
-                    return EventItemWidget();
+                    return Container();
                   }),
             )
           ],
