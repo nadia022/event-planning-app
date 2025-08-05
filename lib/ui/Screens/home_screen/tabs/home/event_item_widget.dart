@@ -1,8 +1,10 @@
 import 'package:evently_app/model/event.dart';
+import 'package:evently_app/providers/event_list_provider.dart';
 import 'package:evently_app/utils/app_colors.dart';
 import 'package:evently_app/utils/app_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 class EventItemWidget extends StatelessWidget {
   Event event;
@@ -13,6 +15,7 @@ class EventItemWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
+    var eventListProvider = Provider.of<EventListProvider>(context);
     return Container(
       padding: EdgeInsets.symmetric(
           vertical: height * 0.008, horizontal: width * 0.016),
@@ -58,12 +61,20 @@ class EventItemWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  event.descreption,
+                  event.title,
                   style: AppStyles.mediumBlackBold14,
                 ),
-                Icon(
-                  Icons.favorite,
-                  color: AppColors.primaryColorLight,
+                InkWell(
+                  onTap: () {
+                    eventListProvider.updateIsFavoriteEvent(event, context);
+                  },
+                  child: event.isFavorite == true
+                      ? Icon(
+                          Icons.favorite,
+                          color: AppColors.primaryColorLight,
+                        )
+                      : Icon(Icons.favorite_outline,
+                          color: AppColors.primaryColorLight),
                 )
               ],
             ),

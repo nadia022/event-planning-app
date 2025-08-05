@@ -33,6 +33,8 @@ class DialogUtils {
     Function? posAction,
     Function? negAction,
     List<Widget>? actions,
+    double? width,
+    double? height,
   }) {
     actions ??= [];
     if (posName != null) {

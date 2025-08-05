@@ -20,21 +20,12 @@ class _HomeTabState extends State<HomeTab> {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
     var eventListProvider = Provider.of<EventListProvider>(context);
-    List<String> eventNames = [
-      appLocalization.all,
-      appLocalization.sport,
-      appLocalization.birthday,
-      appLocalization.meeting,
-      appLocalization.gaming,
-      appLocalization.workshop,
-      appLocalization.bookclub,
-      appLocalization.exhibition,
-      appLocalization.holiday,
-      appLocalization.eating,
-    ];
+
     if (eventListProvider.eventList.isEmpty) {
       eventListProvider.getAllEvents();
     }
+    eventListProvider.getEventNames(context);
+
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: height * 0.1,
@@ -43,7 +34,6 @@ class _HomeTabState extends State<HomeTab> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(appLocalization.welcome_back, style: AppStyles.mediumWhite14),
-            // return from data base
             Text(
               "User Name ",
               style: AppStyles.largeWhiteBold20,
@@ -108,7 +98,7 @@ class _HomeTabState extends State<HomeTab> {
                   bottomRight: Radius.circular(24)),
             ),
             child: DefaultTabController(
-              length: eventNames.length,
+              length: eventListProvider.eventNames.length,
               child: TabBar(
                 tabAlignment: TabAlignment.start,
                 labelPadding: EdgeInsets.zero,
@@ -119,13 +109,13 @@ class _HomeTabState extends State<HomeTab> {
                   eventListProvider.changeIndex(value);
                   setState(() {});
                 },
-                tabs: eventNames.map((eventName) {
+                tabs: eventListProvider.eventNames.map((eventName) {
                   return EventNameWidget(
                     selcTextStyle: AppStyles.mediumBlue16,
                     unselcTextStyle: AppStyles.mediumWhite16,
                     selecBackgroundColor: AppColors.white,
                     selectEvent: eventListProvider.selectIndex ==
-                        eventNames.indexOf(eventName),
+                        eventListProvider.eventNames.indexOf(eventName),
                     eventName: eventName,
                     borderColor: AppColors.white,
                   );
@@ -148,7 +138,7 @@ class _HomeTabState extends State<HomeTab> {
                         event: eventListProvider.filteredList[intex],
                       );
                     }),
-          )
+          ),
         ],
       ),
     );

@@ -239,8 +239,6 @@ class _LoginScreenState extends State<LoginScreen> {
             message: "Register Successfully....",
             title: "Login",
             posName: "OK");
-        // print("Login Successfully....");
-        // print(credential.user?.uid ?? "");
       } on FirebaseAuthException catch (e) {
         if (e.code == 'user-not-found') {
           DialogUtils.hideLoading(context: context);

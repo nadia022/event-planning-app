@@ -1,8 +1,10 @@
+import 'package:evently_app/providers/event_list_provider.dart';
 import 'package:evently_app/ui/Screens/home_screen/tabs/home/event_item_widget.dart';
 import 'package:evently_app/utils/app_colors.dart';
 import 'package:evently_app/utils/app_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
 
 class FavoriteTab extends StatelessWidget {
   @override
@@ -10,6 +12,10 @@ class FavoriteTab extends StatelessWidget {
     var appLocalization = AppLocalizations.of(context)!;
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
+    var eventListProvider = Provider.of<EventListProvider>(context);
+    if (eventListProvider.favoriteEventList.isEmpty) {
+      eventListProvider.getFavouriteEvents();
+    }
     return SafeArea(
       child: Scaffold(
         body: Column(
@@ -43,11 +49,19 @@ class FavoriteTab extends StatelessWidget {
               ),
             ),
             Expanded(
-              child: ListView.builder(
-                  itemCount: 20,
-                  itemBuilder: (context, index) {
-                    return Container();
-                  }),
+              child: eventListProvider.favoriteEventList.isEmpty
+                  ? Center(
+                      child: Text(
+                        "No events Found",
+                        style: AppStyles.mediumBlack16,
+                      ),
+                    )
+                  : ListView.builder(
+                      itemCount: eventListProvider.favoriteEventList.length,
+                      itemBuilder: (context, index) {
+                        return EventItemWidget(
+                            event: eventListProvider.favoriteEventList[index]);
+                      }),
             )
           ],
         ),

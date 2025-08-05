@@ -1,25 +1,31 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:evently_app/model/event.dart';
+import 'package:evently_app/utils/dialog_utils.dart';
 import 'package:evently_app/utils/firebase_utils.dart';
-import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class EventListProvider extends ChangeNotifier {
   List<Event> eventList = [];
   List<Event> filteredList = [];
-  List<String> eventNames = [
-    'All',
-    'Sport',
-    'Birthday',
-    'Meeting',
-    'Gaming',
-    'Workshop',
-    'Bookclub',
-    'Exhibition',
-    'Holiday',
-    'Eating',
-  ];
-
+  List<String> eventNames = [];
+  List<Event> favoriteEventList = [];
   int selectIndex = 0;
+
+  void getEventNames(BuildContext context) {
+    eventNames = [
+      AppLocalizations.of(context)!.all,
+      AppLocalizations.of(context)!.sport,
+      AppLocalizations.of(context)!.birthday,
+      AppLocalizations.of(context)!.meeting,
+      AppLocalizations.of(context)!.gaming,
+      AppLocalizations.of(context)!.workshop,
+      AppLocalizations.of(context)!.bookclub,
+      AppLocalizations.of(context)!.exhibition,
+      AppLocalizations.of(context)!.holiday,
+      AppLocalizations.of(context)!.eating,
+    ];
+  }
 
   void getAllEvents() async {
     QuerySnapshot<Event> querySnapshot =
@@ -36,7 +42,7 @@ class EventListProvider extends ChangeNotifier {
   void getFilteredEvents() async {
     QuerySnapshot<Event> querySnapshot =
         await FirebaseUtils.getEventCollection().get();
-    filteredList = querySnapshot.docs.map((doc) {
+    eventList = querySnapshot.docs.map((doc) {
       return doc.data();
     }).toList();
     filteredList = eventList.where((event) {
@@ -49,6 +55,19 @@ class EventListProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void updateIsFavoriteEvent(Event event, BuildContext context) {
+    FirebaseUtils.getEventCollection()
+        .doc(event.id)
+        .update({'isFavorite': !event.isFavorite}).timeout(
+      Duration(milliseconds: 500),
+      onTimeout: () {
+        print("updated succefully");
+      },
+    );
+    selectIndex == 0 ? getAllEvents() : getFilteredEvents();
+    getFavouriteEvents();
+  }
+
   void changeIndex(int newIndex) {
     selectIndex = newIndex;
     if (selectIndex == 0) {
@@ -56,5 +75,16 @@ class EventListProvider extends ChangeNotifier {
     } else {
       getFilteredEvents();
     }
+  }
+
+  void getFavouriteEvents() async {
+    var querySnapshot = await FirebaseUtils.getEventCollection()
+        .orderBy('date', descending: false)
+        .where('isFavorite', isEqualTo: true)
+        .get();
+    favoriteEventList = querySnapshot.docs.map((docs) {
+      return docs.data();
+    }).toList();
+    notifyListeners();
   }
 }

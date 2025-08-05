@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:evently_app/assets/app_assets.dart';
 import 'package:evently_app/model/event.dart';
 import 'package:evently_app/providers/event_list_provider.dart';
@@ -6,9 +8,9 @@ import 'package:evently_app/ui/Screens/home_screen/add_event/custom_event_date_o
 import 'package:evently_app/ui/Screens/home_screen/tabs/home/event_name_widget.dart';
 import 'package:evently_app/utils/app_colors.dart';
 import 'package:evently_app/utils/app_styles.dart';
+import 'package:evently_app/utils/dialog_utils.dart';
 import 'package:evently_app/utils/firebase_utils.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 
 class AddEventScreen extends StatefulWidget {
@@ -32,21 +34,13 @@ class _AddEventScreenState extends State<AddEventScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var appLocalization = AppLocalizations.of(context)!;
+    // var appLocalization = AppLocalizations.of(context)!;
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
     var themProvider = Provider.of<ThemeProvider>(context);
-    List<String> eventNames = [
-      appLocalization.sport,
-      appLocalization.birthday,
-      appLocalization.meeting,
-      appLocalization.gaming,
-      appLocalization.workshop,
-      appLocalization.bookclub,
-      appLocalization.exhibition,
-      appLocalization.holiday,
-      appLocalization.eating,
-    ];
+    eventListProvider = Provider.of<EventListProvider>(context);
+    eventListProvider.getEventNames(context);
+    eventListProvider.eventNames.removeAt(0);
     List<String> eventImages = [
       AppAssets.sportEventImage,
       AppAssets.birthdayEventImage,
@@ -59,10 +53,8 @@ class _AddEventScreenState extends State<AddEventScreen> {
       AppAssets.eatingEventImage,
     ];
     eventImage = eventImages[selectIndex];
-    eventName = eventNames[selectIndex];
-    print("Event Image: $eventImage");
-    print("Event Name: $eventName");
-    eventListProvider = Provider.of<EventListProvider>(context);
+    eventName = eventListProvider.eventNames[selectIndex];
+
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -104,7 +96,7 @@ class _AddEventScreenState extends State<AddEventScreen> {
                   height: height * 0.05,
                   child: ListView.builder(
                       scrollDirection: Axis.horizontal,
-                      itemCount: eventNames.length,
+                      itemCount: eventListProvider.eventNames.length,
                       itemBuilder: (context, index) {
                         return InkWell(
                           onTap: () {
@@ -117,7 +109,7 @@ class _AddEventScreenState extends State<AddEventScreen> {
                               selcTextStyle: AppStyles.mediumWhite16,
                               unselcTextStyle: AppStyles.mediumBlue16,
                               selectEvent: selectIndex == index,
-                              eventName: eventNames[index]),
+                              eventName: eventListProvider.eventNames[index]),
                         );
                       }),
                 ),
@@ -256,26 +248,69 @@ class _AddEventScreenState extends State<AddEventScreen> {
     );
   }
 
-  void addEvent() {
+  void addEvent() async {
     if (formKey.currentState!.validate()) {
-      Event event = Event(
-        eventName: eventName,
-        eventImage: eventImage,
-        title: titleController.text,
-        descreption: descreptionController.text,
-        date: selectedDate!,
-        time: time!,
-      );
-      FirebaseUtils.addEvent(event).timeout(
-        Duration(milliseconds: 500),
-        onTimeout: () {
-          print("The event added succesfully");
-        },
-      );
-      eventListProvider.getAllEvents();
-      Navigator.pop(context);
+      DialogUtils.showloading(context: context, message: "Adding Event...");
+      try {
+        Event event = Event(
+          eventName: eventName,
+          eventImage: eventImage,
+          title: titleController.text,
+          descreption: descreptionController.text,
+          date: selectedDate!,
+          time: time!,
+        );
+        FirebaseUtils.addEvent(event).timeout(Duration(seconds: 5));
+        DialogUtils.hideLoading(context: context);
+        DialogUtils.showMessage(
+            context: context,
+            message: "Event added successfully",
+            posName: "Ok",
+            posAction: () {
+              eventListProvider.getAllEvents();
+              Navigator.pop(context);
+            });
+      } on TimeoutException {
+        DialogUtils.hideLoading(context: context);
+        DialogUtils.showMessage(
+          context: context,
+          message: "message",
+          posName: "Ok",
+        );
+      } catch (e) {
+        DialogUtils.hideLoading(context: context);
+        DialogUtils.showMessage(
+            context: context,
+            message: "Something went wrong. Please try again.",
+            posName: "Ok");
+      }
     }
   }
+
+  // void addEvent() {
+  //   if (formKey.currentState!.validate()) {
+  //     Event event = Event(
+  //       eventName: eventName,
+  //       eventImage: eventImage,
+  //       title: titleController.text,
+  //       descreption: descreptionController.text,
+  //       date: selectedDate!,
+  //       time: time!,
+  //     );
+  //     FirebaseUtils.addEvent(event).timeout(
+  //       Duration(milliseconds: 500),
+  //       onTimeout: () {
+  //         DialogUtils.showMessage(
+  //             context: context,
+  //             message: "Event Added successfully",
+  //             posName: "Ok");
+  //         print("The event added succesfully");
+  //       },
+  //     );
+  //     eventListProvider.getAllEvents();
+  //     Navigator.pop(context);
+  //   }
+  // }
 
   void chooseDate() async {
     var chosenDate = await showDatePicker(
