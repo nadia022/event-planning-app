@@ -1,11 +1,16 @@
+import 'package:evently_app/providers/user_Provider.dart';
+import 'package:evently_app/ui/Screens/home_screen/home_screen.dart';
 import 'package:evently_app/ui/auth/login_screen/login_screen.dart';
 import 'package:evently_app/utils/app_colors.dart';
 import 'package:evently_app/assets/app_assets.dart';
 import 'package:evently_app/utils/dialog_utils.dart';
 import 'package:evently_app/ui/widgets/language_switch.dart';
+import 'package:evently_app/utils/firebase_utils.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:evently_app/model/my_user.dart';
+import 'package:provider/provider.dart';
 
 class RegisterScreen extends StatefulWidget {
   static const routeName = "registerScreen";
@@ -203,12 +208,22 @@ class _RegisterScreenState extends State<RegisterScreen> {
           email: emailController.text,
           password: passwordController.text,
         );
+        MyUser user = MyUser(
+            email: emailController.text,
+            name: nameController.text,
+            id: credential.user?.uid ?? '');
+        await FirebaseUtils.addUserTofirestore(user);
+        var userProvider = Provider.of<UserProvider>(context, listen: false);
+        userProvider.updateUser(user);
         DialogUtils.hideLoading(context: context);
         DialogUtils.showMessage(
             context: context,
             message: "Register Successfully....",
             title: "Register",
-            posName: "OK");
+            posName: "OK",
+            posAction: () {
+              Navigator.pushReplacementNamed(context, HomeScreen.routeName);
+            });
         print("Register Successfully....");
         print(credential.user?.uid ?? "");
       } on FirebaseAuthException catch (e) {

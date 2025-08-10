@@ -1,3 +1,5 @@
+import 'package:evently_app/providers/user_Provider.dart';
+import 'package:evently_app/ui/Screens/home_screen/home_screen.dart';
 import 'package:evently_app/ui/auth/forget_password_screen/forget_password_screen.dart';
 import 'package:evently_app/ui/auth/register_screen/register_screen.dart';
 import 'package:evently_app/utils/app_colors.dart';
@@ -5,9 +7,11 @@ import 'package:evently_app/assets/app_assets.dart';
 import 'package:evently_app/utils/dialog_utils.dart';
 import 'package:evently_app/ui/widgets/language_switch.dart';
 import 'package:evently_app/ui/widgets/theme_switch.dart';
+import 'package:evently_app/utils/firebase_utils.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
 
 class LoginScreen extends StatefulWidget {
   static const routeName = "loginScreen";
@@ -233,18 +237,27 @@ class _LoginScreenState extends State<LoginScreen> {
           email: emailController.text,
           password: passwordController.text,
         );
+        var user = await FirebaseUtils.readUserFromFirestore(
+            credential.user?.uid ?? '');
+        if (user == null) {
+          return;
+        }
+        var userProvider = Provider.of<UserProvider>(context, listen: false);
+        userProvider.updateUser(user);
         DialogUtils.hideLoading(context: context);
         DialogUtils.showMessage(
             context: context,
             message: "Register Successfully....",
             title: "Login",
-            posName: "OK");
+            posName: "OK",
+            posAction: () {
+              Navigator.pushReplacementNamed(context, HomeScreen.routeName);
+            });
       } on FirebaseAuthException catch (e) {
         if (e.code == 'user-not-found') {
           DialogUtils.hideLoading(context: context);
           DialogUtils.showMessage(
               context: context, message: "No user found for that email.");
-          print('No user found for that email.');
         } else if (e.code == 'wrong-password') {
           DialogUtils.hideLoading(context: context);
           DialogUtils.showMessage(
@@ -252,7 +265,6 @@ class _LoginScreenState extends State<LoginScreen> {
               message: "Wrong password provided for that user.",
               title: "Error",
               posName: "OK");
-          print('Wrong password provided for that user.');
         } else if (e.code == 'invalid-credential') {
           DialogUtils.hideLoading(context: context);
           DialogUtils.showMessage(
@@ -261,8 +273,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   "The supplied auth credential is incorrect, malformed or has expired",
               title: "Error",
               posName: "OK");
-          print(
-              "The supplied auth credential is incorrect, malformed or has expired.");
         } else if (e.code == 'network-request-failed') {
           DialogUtils.hideLoading(context: context);
           DialogUtils.showMessage(
@@ -271,8 +281,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   "A network error (such as timeout, interrupted connection or unreachable host) has occurred.",
               title: "Error",
               posName: "OK");
-          print(
-              "A network error (such as timeout, interrupted connection or unreachable host) has occurred.");
         }
       } catch (e) {
         DialogUtils.hideLoading(context: context);
@@ -281,7 +289,6 @@ class _LoginScreenState extends State<LoginScreen> {
             message: e.toString(),
             title: "Error",
             posName: "OK");
-        print(e.toString());
       }
     }
   }

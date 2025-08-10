@@ -1,5 +1,6 @@
 import 'package:evently_app/assets/app_assets.dart';
 import 'package:evently_app/providers/event_list_provider.dart';
+import 'package:evently_app/providers/user_Provider.dart';
 import 'package:evently_app/ui/Screens/home_screen/tabs/home/event_item_widget.dart';
 import 'package:evently_app/ui/Screens/home_screen/tabs/home/event_name_widget.dart';
 import 'package:evently_app/utils/app_colors.dart';
@@ -20,9 +21,10 @@ class _HomeTabState extends State<HomeTab> {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
     var eventListProvider = Provider.of<EventListProvider>(context);
+    var userProvider = Provider.of<UserProvider>(context);
 
     if (eventListProvider.eventList.isEmpty) {
-      eventListProvider.getAllEvents();
+      eventListProvider.getAllEvents(userProvider.currentUser!.id);
     }
     eventListProvider.getEventNames(context);
 
@@ -35,7 +37,7 @@ class _HomeTabState extends State<HomeTab> {
           children: [
             Text(appLocalization.welcome_back, style: AppStyles.mediumWhite14),
             Text(
-              "User Name ",
+              userProvider.currentUser!.name,
               style: AppStyles.largeWhiteBold20,
             ),
             Row(
@@ -106,7 +108,8 @@ class _HomeTabState extends State<HomeTab> {
                 dividerColor: Colors.transparent,
                 isScrollable: true,
                 onTap: (value) {
-                  eventListProvider.changeIndex(value);
+                  eventListProvider.changeIndex(
+                      value, userProvider.currentUser!.id);
                   setState(() {});
                 },
                 tabs: eventListProvider.eventNames.map((eventName) {

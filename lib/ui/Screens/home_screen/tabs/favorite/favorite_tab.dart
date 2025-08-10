@@ -1,4 +1,5 @@
 import 'package:evently_app/providers/event_list_provider.dart';
+import 'package:evently_app/providers/user_Provider.dart';
 import 'package:evently_app/ui/Screens/home_screen/tabs/home/event_item_widget.dart';
 import 'package:evently_app/utils/app_colors.dart';
 import 'package:evently_app/utils/app_styles.dart';
@@ -13,8 +14,10 @@ class FavoriteTab extends StatelessWidget {
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
     var eventListProvider = Provider.of<EventListProvider>(context);
+    var userProvider = Provider.of<UserProvider>(context);
+
     if (eventListProvider.favoriteEventList.isEmpty) {
-      eventListProvider.getFavouriteEvents();
+      eventListProvider.getFavouriteEvents(userProvider.currentUser!.id);
     }
     return SafeArea(
       child: Scaffold(

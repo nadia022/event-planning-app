@@ -1,5 +1,5 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:evently_app/providers/event_list_provider.dart';
+import 'package:evently_app/providers/user_Provider.dart';
 import 'package:evently_app/ui/Screens/home_screen/add_event/add_event_screen.dart';
 import 'package:evently_app/ui/Screens/home_screen/home_screen.dart';
 import 'package:evently_app/ui/auth/forget_password_screen/forget_password_screen.dart';
@@ -22,12 +22,13 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  await FirebaseFirestore.instance.disableNetwork();
+  // await FirebaseFirestore.instance.disableNetwork();
   runApp(
     MultiProvider(providers: [
       ChangeNotifierProvider(create: (context) => ThemeProvider()),
       ChangeNotifierProvider(create: (context) => LocaleProvider()),
       ChangeNotifierProvider(create: (context) => EventListProvider()),
+      ChangeNotifierProvider(create: (context) => UserProvider()),
     ], child: MyApp()),
   );
 }
@@ -39,7 +40,7 @@ class MyApp extends StatelessWidget {
     var localeProvider = Provider.of<LocaleProvider>(context);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: HomeScreen.routeName,
+      initialRoute: LoginScreen.routeName,
       routes: {
         SplashScreen.routeName: (_) => SplashScreen(),
         SetupScreen.routeName: (_) => SetupScreen(),

@@ -4,6 +4,7 @@ import 'package:evently_app/assets/app_assets.dart';
 import 'package:evently_app/model/event.dart';
 import 'package:evently_app/providers/event_list_provider.dart';
 import 'package:evently_app/providers/theme_provider.dart';
+import 'package:evently_app/providers/user_Provider.dart';
 import 'package:evently_app/ui/Screens/home_screen/add_event/custom_event_date_or_time.dart';
 import 'package:evently_app/ui/Screens/home_screen/tabs/home/event_name_widget.dart';
 import 'package:evently_app/utils/app_colors.dart';
@@ -260,14 +261,16 @@ class _AddEventScreenState extends State<AddEventScreen> {
           date: selectedDate!,
           time: time!,
         );
-        FirebaseUtils.addEvent(event).timeout(Duration(seconds: 5));
+        var userProvider = Provider.of<UserProvider>(context, listen: false);
+        FirebaseUtils.addEvent(event, userProvider.currentUser!.id)
+            .timeout(Duration(seconds: 5));
         DialogUtils.hideLoading(context: context);
         DialogUtils.showMessage(
             context: context,
             message: "Event added successfully",
             posName: "Ok",
             posAction: () {
-              eventListProvider.getAllEvents();
+              eventListProvider.getAllEvents(userProvider.currentUser!.id);
               Navigator.pop(context);
             });
       } on TimeoutException {

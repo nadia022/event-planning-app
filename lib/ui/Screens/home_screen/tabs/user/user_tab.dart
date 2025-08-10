@@ -1,8 +1,11 @@
 import 'package:evently_app/assets/app_assets.dart';
+import 'package:evently_app/providers/event_list_provider.dart';
 import 'package:evently_app/providers/locale_provider.dart';
 import 'package:evently_app/providers/theme_provider.dart';
+import 'package:evently_app/providers/user_Provider.dart';
 import 'package:evently_app/ui/Screens/home_screen/tabs/user/language_bottom_sheet.dart';
 import 'package:evently_app/ui/Screens/home_screen/tabs/user/theme_bottom_sheet.dart';
+import 'package:evently_app/ui/auth/login_screen/login_screen.dart';
 import 'package:evently_app/utils/app_colors.dart';
 import 'package:evently_app/utils/app_styles.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +20,8 @@ class UserTab extends StatelessWidget {
     var appLocalization = AppLocalizations.of(context)!;
     var localeProvider = Provider.of<LocaleProvider>(context);
     var themeProvider = Provider.of<ThemeProvider>(context);
+    var userProvider = Provider.of<UserProvider>(context);
+    var eventListProvider = Provider.of<EventListProvider>(context);
 
     return Scaffold(
       body: Column(
@@ -55,14 +60,14 @@ class UserTab extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        "Nadia Ashraf ",
+                        userProvider.currentUser!.name,
                         style: AppStyles.largeWhiteBold20,
                       ),
                       SizedBox(
                         height: height * 0.012,
                       ),
                       Text(
-                        "nadia@gmail.com",
+                        userProvider.currentUser!.email,
                         style: AppStyles.mediumWhite16,
                       )
                     ],
@@ -168,7 +173,12 @@ class UserTab extends StatelessWidget {
             padding: EdgeInsets.symmetric(
                 vertical: height * 0.033, horizontal: width * 0.042),
             child: FilledButton(
-                onPressed: () {},
+                onPressed: () {
+                  eventListProvider.filteredList = [];
+                  eventListProvider.favoriteEventList = [];
+                  Navigator.pushReplacementNamed(
+                      context, LoginScreen.routeName);
+                },
                 style: FilledButton.styleFrom(
                   backgroundColor: AppColors.babyRed,
                   shape: RoundedRectangleBorder(
