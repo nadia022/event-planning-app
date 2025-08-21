@@ -1,11 +1,10 @@
 import 'dart:async';
-
 import 'package:evently_app/assets/app_assets.dart';
 import 'package:evently_app/model/event.dart';
 import 'package:evently_app/providers/event_list_provider.dart';
 import 'package:evently_app/providers/theme_provider.dart';
 import 'package:evently_app/providers/user_Provider.dart';
-import 'package:evently_app/ui/Screens/home_screen/add_event/custom_event_date_or_time.dart';
+import 'package:evently_app/ui/Screens/event/add_event/custom_event_date_or_time.dart';
 import 'package:evently_app/ui/Screens/home_screen/tabs/home/event_name_widget.dart';
 import 'package:evently_app/utils/app_colors.dart';
 import 'package:evently_app/utils/app_styles.dart';

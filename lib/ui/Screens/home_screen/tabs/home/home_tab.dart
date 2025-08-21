@@ -1,6 +1,7 @@
 import 'package:evently_app/assets/app_assets.dart';
 import 'package:evently_app/providers/event_list_provider.dart';
 import 'package:evently_app/providers/user_Provider.dart';
+import 'package:evently_app/ui/Screens/event/event_details/event_details_screen.dart';
 import 'package:evently_app/ui/Screens/home_screen/tabs/home/event_item_widget.dart';
 import 'package:evently_app/ui/Screens/home_screen/tabs/home/event_name_widget.dart';
 import 'package:evently_app/utils/app_colors.dart';
@@ -139,6 +140,11 @@ class _HomeTabState extends State<HomeTab> {
                     itemBuilder: (BuildContext context, int intex) {
                       return EventItemWidget(
                         event: eventListProvider.filteredList[intex],
+                        onTap: () {
+                          Navigator.pushNamed(
+                              context, EventDetailsScreen.routeName,
+                              arguments: eventListProvider.filteredList[intex]);
+                        },
                       );
                     }),
           ),

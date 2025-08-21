@@ -38,4 +38,12 @@ class FirebaseUtils {
     event.id = docRef.id;
     return docRef.set(event);
   }
+
+  static Future<void> deleteEvent(Event event, String uId) {
+    return getEventCollection(uId).doc(event.id).delete();
+  }
+
+  static Future<void> updateEvent(Event event, String uId) {
+    return getEventCollection(uId).doc(event.id).update(event.toFireStore());
+  }
 }

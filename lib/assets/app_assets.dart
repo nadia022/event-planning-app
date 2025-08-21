@@ -44,4 +44,5 @@ class AppAssets {
   static const String dateIcon = "assets/images/date_icon.png";
   static const String timeIcon = "assets/images/time_icon.png";
   static const String locationIcon = "assets/images/loc_frame_icon.png";
+  static const String calenderIcon = "assets/images/calender_icon.png";
 }

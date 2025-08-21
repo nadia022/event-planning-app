@@ -1,4 +1,4 @@
-import 'package:evently_app/ui/Screens/home_screen/add_event/add_event_screen.dart';
+import 'package:evently_app/ui/Screens/event/add_event/add_event_screen.dart';
 import 'package:evently_app/ui/Screens/home_screen/tabs/favorite/favorite_tab.dart';
 import 'package:evently_app/ui/Screens/home_screen/tabs/home/home_tab.dart';
 import 'package:evently_app/ui/Screens/home_screen/tabs/map/map_tab..dart';

@@ -1,6 +1,8 @@
 import 'package:evently_app/providers/event_list_provider.dart';
 import 'package:evently_app/providers/user_Provider.dart';
-import 'package:evently_app/ui/Screens/home_screen/add_event/add_event_screen.dart';
+import 'package:evently_app/ui/Screens/event/edit_event/edit_event_screen.dart';
+import 'package:evently_app/ui/Screens/event/event_details/event_details_screen.dart';
+import 'package:evently_app/ui/Screens/event/add_event/add_event_screen.dart';
 import 'package:evently_app/ui/Screens/home_screen/home_screen.dart';
 import 'package:evently_app/ui/auth/forget_password_screen/forget_password_screen.dart';
 import 'package:evently_app/ui/auth/login_screen/login_screen.dart';
@@ -50,6 +52,8 @@ class MyApp extends StatelessWidget {
         ForgetPasswordScreen.routeName: (_) => ForgetPasswordScreen(),
         HomeScreen.routeName: (_) => HomeScreen(),
         AddEventScreen.routeName: (_) => AddEventScreen(),
+        EventDetailsScreen.routeName: (_) => EventDetailsScreen(),
+        EditEventScreen.routeName: (_) => EditEventScreen(),
       },
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,

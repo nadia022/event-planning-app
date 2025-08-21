@@ -9,6 +9,8 @@ class EventListProvider extends ChangeNotifier {
   List<Event> filteredList = [];
   List<String> eventNames = [];
   List<Event> favoriteEventList = [];
+  List<Event> searchedFavoriteEventList = [];
+
   int selectIndex = 0;
 
   void getEventNames(BuildContext context) {
@@ -84,6 +86,7 @@ class EventListProvider extends ChangeNotifier {
     favoriteEventList = querySnapshot.docs.map((docs) {
       return docs.data();
     }).toList();
+    searchedFavoriteEventList = favoriteEventList;
     notifyListeners();
   }
 }
